@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 app.use(morgan('dev'))
 
 // static middleware https://expressjs.com/en/starter/static-files.html
-app.use(express.static(path.join(__dirname, './public')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 // parsing middleware https://www.npmjs.com/package/body-parser
 
@@ -22,7 +22,7 @@ app.use('/api', require('./routes/index'))
 
 // NEEDS TO BE LAST ROUTE. Catch any paths that don't match above and send back homepage
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
 })
 
 // Server issues. MUST BE LAST
@@ -36,7 +36,6 @@ module.exports = app
 
 const port = process.env.PORT || 3333
 app.listen(port, function() {
-  console.log('Knock, knock')
-  console.log("Who's there?")
   console.log(`Your server, listening on port ${port}`)
+  console.log(`http://localhost:${port}`);
 })
