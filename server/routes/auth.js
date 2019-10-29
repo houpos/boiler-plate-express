@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const passport = require('passport')
-const User = require('./db/models/users')
+const User = require('../db/models/users')
+
+router.use('/google', require('./oauth'))
 
 router.put('/login', async (req, res, next) => {
   try {

@@ -5,12 +5,9 @@ import { Provider } from 'react-redux'
 
 import '../public/styles.css';
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <div>Hello, World!</div>
-    </Provider>
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(
+  <Provider store={store}>
+    <div>Hello, World!</div>
+  </Provider>,
+  document.getElementById('app')
+)

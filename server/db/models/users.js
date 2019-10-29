@@ -6,12 +6,18 @@ const _ = require('lodash')
 const User = db.define('users', {
   email: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       isEmail: true
     }
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      min: 6,
+      max: 16
+    }
   },
   salt: {
     type: Sequelize.STRING

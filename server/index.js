@@ -3,7 +3,11 @@ const app = express()
 const morgan = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
-const env = require('../secrets')
+
+if (process.env.NODE_ENV === undefined || process.env.NODE_ENV === 'development') {
+  require('../secrets') // this will mutate the process.env object with your secrets.
+}
+
 const passport = require('passport');
 
 // logging middleware https://www.npmjs.com/package/morgan
@@ -35,7 +39,7 @@ dbStore.sync();
 // Session middleware
 app.use(
   session({
-    secret: env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     store: dbStore,
     saveUninitialized: false
@@ -51,10 +55,10 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // authentication router
-app.use('/auth', require('./auth'))
+app.use('/auth', require('./routes/auth'))
 
 // Separating out our API routes
-app.use('/api', require('./routes/index'))
+app.use('/api', require('./routes/api'))
 
 // NEEDS TO BE LAST ROUTE. Catch any paths that don't match above and send back homepage
 app.get('*', (req, res) => {
