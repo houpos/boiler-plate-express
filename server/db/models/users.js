@@ -31,14 +31,6 @@ const User = db.define('users', {
 
 // instance methods
 User.prototype.correctPassword = function(candidatePassword) {
-  console.log('candidate password', candidatePassword);
-  console.log('password', this.password);
-  console.log('salt', this.salt);
-    console.log(
-      'outputted password',
-      User.encryptPassword(candidatePassword, this.salt)
-    );
-
   return (
     User.encryptPassword(candidatePassword, this.salt) === this.password
   );
@@ -72,8 +64,6 @@ function setSaltAndPassword (user) {
   if (user.changed('password')) {
     user.salt = User.generateSalt();
     user.password = User.encryptPassword(user.password, user.salt);
-        console.log('user password', user.password);
-
   }
 }
 

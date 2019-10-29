@@ -37,6 +37,7 @@ app.use(
   session({
     secret: env.SESSION_SECRET,
     resave: false,
+    store: dbStore,
     saveUninitialized: false
   })
 );
