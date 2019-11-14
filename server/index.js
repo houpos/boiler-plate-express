@@ -46,6 +46,11 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log('SESSION', req.sessionID)
+  next()
+})
+
 // static middleware https://expressjs.com/en/starter/static-files.html
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
